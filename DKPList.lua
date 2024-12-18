@@ -1,12 +1,11 @@
-local MAX_ENTRIES = 40;
-local MAX_ENTRIES_SHOWN = 20;
+local MAX_ENTRIES = 80;
+local MAX_ENTRIES_SHOWN = 24;
 -- Raid Roster: table of raid players:		{ Name, DKP, Class, Rank, Online }
 local DKPList_RaidRosterTable			= { }
 -- Guild Roster: table of guild players:	{ Name, DKP, Class, Rank, Online, Zone }
 local DKPList_GuildRosterTable			= { }
 local DKPList_CheckForInRaid = 0;
 local DKPList_ScrollCounter = 0;
-local DKPList_AllianceMode = 0;
 
 local CLASS_COLORS = {
 	{ "Druid",			{ 255,125, 10 } },	--255 	125 	10		1.00 	0.49 	0.04 	#FF7D0A
@@ -218,7 +217,7 @@ end
 
 function DKPList_RefreshRoster()
 	local ShowOffline = GetGuildRosterShowOffline()
-	SetGuildRosterShowOffline(true)
+	--SetGuildRosterShowOffline(true)
 	if DKPList_CheckForInRaid == 0 then 
 		DKPList_RefreshGuildRoster()
 	else 
@@ -267,7 +266,6 @@ function DKPList_MageButtonOnClick(arg1)
 end
 
 function DKPList_PaladinButtonOnClick()
-	if DKPList_AllianceMode == 0 then return end
 	if arg1 == "LeftButton" then
 		if CLASS_FILTER[4][2] == 0 then CLASS_FILTER[4][2] = 1
 		else CLASS_FILTER[4][2] = 0 end
@@ -304,7 +302,6 @@ function DKPList_RogueButtonOnClick()
 end
 
 function DKPList_ShamanButtonOnClick()
-	if DKPList_AllianceMode == 1 then return end
 	if arg1 == "LeftButton" then
 		if CLASS_FILTER[7][2] == 0 then CLASS_FILTER[7][2] = 1
 		else CLASS_FILTER[7][2] = 0 end
@@ -344,12 +341,10 @@ function DKPList_ShowClassButtons()
 	DKPList_DruidButton:Show();
 	DKPList_HunterButton:Show();
 	DKPList_MageButton:Show();
-	if DKPList_AllianceMode == 1 then DKPList_PaladinButton:Show()
-	else DKPList_PaladinButton:Disable() end
+	DKPList_PaladinButton:Show()
 	DKPList_PriestButton:Show();
 	DKPList_RogueButton:Show();
-	if DKPList_AllianceMode == 1 then DKPList_ShamanButton:Disable()
-	else DKPList_ShamanButton:Show() end
+	DKPList_ShamanButton:Show()
 	DKPList_WarlockButton:Show();
 	DKPList_WarriorButton:Show();
 end
@@ -377,12 +372,11 @@ function DKPList_FilterAllClasses()
 end
 
 function DKPList_FiltersShownButtonOnLoad()
-	if DKPList_AllianceMode == 1 then CLASS_FILTER[7][2] = 0
-	else CLASS_FILTER[4][2] = 0 end
+
 
 	local frame = getglobal("DKPList_FiltersShownButton");
 
-	getglobal(frame:GetName().."Text"):SetText("Showing: ");
+	getglobal(frame:GetName().."Text"):SetText("Listed: ");
 	local text = getglobal(frame:GetName().."Text"):GetText()
 	local numClassesShown = 0;
 	for n=1,getn(CLASS_FILTER),1 do
@@ -392,16 +386,11 @@ function DKPList_FiltersShownButtonOnLoad()
 		end
 	end
 	text = string.sub(text, 1, string.len(text) - 2)
-
-	if DKPList_AllianceMode == 1 then
-		if numClassesShown == getn(CLASS_FILTER) - 1 and CLASS_FILTER[7][2] == 0 then
-			text = getglobal(frame:GetName().."Text"):GetText() .."All Classes"
-		end
-	else
-		if numClassesShown == getn(CLASS_FILTER) - 1 and CLASS_FILTER[4][2] == 0 then
-			text = getglobal(frame:GetName().."Text"):GetText() .."All Classes"
-		end
+	if numClassesShown == 9 then
+		text = "Listed: all Classes"
 	end
+
+
 	
 	if DKPList_CheckForInRaid == 1 then
 		text = text .." - In Raid only"
