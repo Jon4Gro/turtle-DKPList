@@ -11,12 +11,12 @@
 				<!-- Player number in list-->
 				<FontString name="$parentNumber" justifyH="RIGHT" inherits="GameFontNormal">
 					<Size>
-						<AbsDimension x="20" y="16"/>
+						<AbsDimension x="30" y="16"/>
 					</Size>
 					<Anchors>
 						<Anchor point="LEFT">
 							<Offset>
-								<AbsDimension x="-2" y="0"/>
+								<AbsDimension x="8" y="0"/>
 							</Offset>
 						</Anchor>
 					</Anchors>
@@ -25,7 +25,7 @@
 				<!-- Player name -->
 				<FontString name="$parentName" justifyH="LEFT" inherits="GameFontNormal">
 					<Size>
-						<AbsDimension x="100" y="16"/>
+						<AbsDimension x="120" y="16"/>
 					</Size>
 					<Anchors>
 						<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentNumber">
@@ -38,7 +38,7 @@
 				<!-- Player DKP -->
 				<FontString name="$parentDKP" justifyH="LEFT" inherits="GameFontNormal">
 					<Size>
-						<AbsDimension x="80" y="16"/>
+						<AbsDimension x="60" y="16"/>
 					</Size>
 					<Anchors>
 						<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentName"/>
@@ -47,7 +47,7 @@
 				<!-- Guild rank -->
 				<FontString name="$parentRank" justifyH="LEFT" inherits="GameFontNormal">
 					<Size>
-						<AbsDimension x="200" y="16"/>
+						<AbsDimension x="200" y="8"/>
 					</Size>
 					<Anchors>
 						<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentDKP"/>
@@ -175,7 +175,7 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="false">
 					<EdgeSize>
 						<AbsValue val="16"/>
 					</EdgeSize>
